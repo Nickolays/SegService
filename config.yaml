@@ -1,0 +1,12 @@
+
+port: 8001
+api_host: "http://0.0.0.0:8001/"
+model_path: "models/u2net-left_best.pt"
+model_input_size: 512   # nxn
+
+device: 'cpu'  # 'cuda'
+batch_size: 2
+
+n_points: 15
+
+confidents: 0.5    # threshold for output image after sigmoid func
