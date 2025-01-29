@@ -1,7 +1,7 @@
 
 
 # Echo Left Segmentation:
-This repository serves as a template for object detection using YOLOv8 and FastAPI. With YOLOv8, you get a popular real-time object detection model and with FastAPI, you get a modern, fast (high-performance) web framework for building APIs. The project also includes Docker, a platform for easily building, shipping, and running distributed applications.
+This repository serves as a template for building a real-time Segmentation API using U2-Net and FastAPI. The project also includes Docker, a platform for easily building, shipping, and running distributed applications.
 
 
 # What's inside:
