@@ -66,8 +66,8 @@ def transform_predict_to_dict(predict) -> json:
         labeles_dict (dict): A dictionary containing the labels names, where the keys are the class ids and the values are the label names.
         
     Returns:
-        predict_coords (dict): {"LV": {'class': class_id, coords: [[x1, y1], xn, yn]}, 
-                                "LA": {'class': class_id, coords: [[...]]}}
+        predict_coords (list[dict]): [{'class': class_id, class_name: "LV", coords: [[x1, y1], xn, yn]}, 
+                                {'class': class_id, class_name: "LA", coords: [[...]]}]
     """
 
     # results = {}
@@ -100,7 +100,7 @@ def transform_predict_to_dict(predict) -> json:
 
     return json.dumps(results)
 
-def get_model_predict(input_image: Image, conf: float = 0.5, save: bool = False, augment: bool = False) -> pd.DataFrame:
+def get_model_predict(input_image:Image, conf:float=0.5, save:bool= alse, augment:bool=False) -> np.array:
     """
     Get the predictions of a model on an input image.
     

@@ -34,29 +34,14 @@ or
 ```
 docker compose up --build
 ```
-
-## Locally
-To start the application locally, follow these steps:
-
-1. Install the required packages:
-
-```
-pip install -r requirements.txt
-```
-2. Start the application:
-```
-uvicorn main:app --reload --host 0.0.0.0 --port 8001
-```  
 *Note: You can change the address and port in the file **docker-compose.yaml***
 
 ## FAST API Docs url:
 http://0.0.0.0:8001/docs#/
 
-<img width=600 src="src/tests/res/fastapi.png" alt="FAST API">    
-
 ---
-# 🚀 Code Examples
-### Example 1: Object Detection to JSON   
+# Code Examples
+### Example 1: Segmentation to JSON   
 The following code demonstrates how to perform object detection and receive the results in JSON format:
 ```python
 import requests
@@ -74,10 +59,11 @@ print(data)
 ```
 Output:
 ```
-{'detect_objects': [{'name': 'cat', 'confidence': 0.926225245}, {'name': 'dog', 'confidence': 0.9109069705}], 'detect_objects_names': 'cat, dog'}
+(list[dict]): [{'class': class_id, class_name: "LV", coords: [[x1, y1], xn, yn]}, 
+                                {'class': class_id, class_name: "LA", coords: [[...]]}]
 ```
 
-### Example 2: Object Detection to Image    
+### Example 2: Segmentation to Image    
 The following code demonstrates how to perform object detection and receive the results in image format.
 ```python
 import requests
@@ -124,10 +110,23 @@ docker-compose up
 ```
 Connect inside the container:
 ```
-docker exec -it {CONTAINER_ID}
+docker exec -it {CONTAINER_ID} sh
 ```
 Run the tests from the program directory:
 ```
 pytest -v --disable-warnings
 ```
 
+
+## Locally
+To start the application locally, follow these steps:
+
+1. Install the required packages:
+
+```
+pip install -r requirements.txt
+```
+2. Start the application:
+```
+uvicorn main:app --reload --host 0.0.0.0 --port 8001
+```  
