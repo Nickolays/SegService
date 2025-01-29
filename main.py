@@ -10,6 +10,7 @@ from fastapi.responses import RedirectResponse
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import HTTPException
+from fastapi.staticfiles import StaticFiles
 
 from io import BytesIO
 
@@ -33,11 +34,12 @@ logger.add("log.log", rotation="1 MB", level="DEBUG", compression="zip")
 
 # title
 app = FastAPI(
-    title="Object Detection FastAPI Template",
+    title="Echo Cardio Semantic Segmentation for LV and LA",
     description="""Obtain object value out of image
                     and return image and json result""",
-    version="2023.1.31",
+    version="2025.1.0",
 )
+app.mount("/static", StaticFiles(directory="src/tests"), name="test_image.jpg")
 
 # This function is needed if you want to allow client requests 
 # from specific domains (specified in the origins argument) 
@@ -159,7 +161,7 @@ def img_segmentation_to_img(file: bytes = File(...)):
     Args:
         file (bytes): The image file in bytes format.
     Returns:
-        Image: Image in bytes with bbox annotations.
+        Image: Image in bytes with Segmented.
     """
     # get image from bytes
     input_image = get_image_from_bytes(file)

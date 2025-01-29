@@ -18,7 +18,7 @@ TODO:
 
 ### Sample
 Here's a sample of what you can expect to see with this project:
-<img width=600 src="./tests/test_image.jpg" alt="">
+<img width=600 src="src/tests/test_image.jpg" alt="">
 
 ---
 # Getting Started
@@ -52,9 +52,7 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8001
 ## FAST API Docs url:
 http://0.0.0.0:8001/docs#/
 
-<img width=600 src="./tests/res/fastapi.png" alt="FAST API">    
-
-Ready to start your object detection journey with YOLOv8-FastAPI? 🚀
+<img width=600 src="src/tests/res/fastapi.png" alt="FAST API">    
 
 ---
 # 🚀 Code Examples
@@ -103,8 +101,8 @@ plt.imshow(img)
 
 # Overview of the code
 * [main.py](./main.py) - Base FastAPI functions  
-* [app.py](./app.py) - YoloV8 functions     
-* [./models](./models) - YoloV8 models folder    
+* [app.py](./app.py) - Segmentation model functions     
+* [./models](./models) - Segmentation models folder    
 
 ---
 # Test

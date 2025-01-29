@@ -15,7 +15,7 @@ print(dynamic_path)
 
 sys.path.append(dynamic_path)
 
-from main import crop_image_by_predict
+# from main import crop_image_by_predict
 from main import app
 
 ################################ Fixtures #####################################################
