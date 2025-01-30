@@ -97,31 +97,7 @@ def perform_healthcheck():
 
 ######################### Support Func #################################
 
-# def crop_image_by_predict(image: Image, predict: pd.DataFrame(), crop_class_name: str,) -> Image:
-#     """Crop an image based on the detection of a certain object in the image.
-    
-#     Args:
-#         image: Image to be cropped.
-#         predict (pd.DataFrame): Dataframe containing the prediction results of object detection model.
-#         crop_class_name (str, optional): The name of the object class to crop the image by. if not provided, function returns the first object found in the image.
-    
-#     Returns:
-#         Image: Cropped image or None
-#     """
-#     crop_predicts = predict[(predict['name'] == crop_class_name)]
-
-#     if crop_predicts.empty:
-#         raise HTTPException(status_code=400, detail=f"{crop_class_name} not found in photo")
-
-#     # if there are several detections, choose the one with more confidence
-#     if len(crop_predicts) > 1:
-#         crop_predicts = crop_predicts.sort_values(by=['confidence'], ascending=False)
-
-#     crop_bbox = crop_predicts[['xmin', 'ymin', 'xmax','ymax']].iloc[0].values
-#     # crop
-#     img_crop = image.crop(crop_bbox)
-#     return(img_crop)
-
+# raise HTTPException(status_code=400, detail=f"{crop_class_name} not found in photo")
 
 ######################### MAIN Func #################################
 

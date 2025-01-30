@@ -9,4 +9,4 @@ batch_size: 2
 
 n_points: 15
 
-confidents: 0.5    # threshold for output image after sigmoid func
+confidents: 0.7    # threshold for output image after sigmoid func

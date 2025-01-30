@@ -7,7 +7,6 @@ import numpy as np
 import torch 
 from typing import Optional
 
-
 from src.scripts.U2Net import U2Net 
 # from torch.utils.data import TensorDataset, DataLoader
 from src.scripts.data_transforms import prepare_input, prepare_output
@@ -20,7 +19,7 @@ img_size = (config['model_input_size'], config['model_input_size'])
 device = config['device']
 n_points = config['n_points']
 
-print(device)
+################################# Models #####################################
 # Initialize the models
 model = U2Net(num_classes=2).to(device)
 if device == 'cpu':
@@ -41,7 +40,6 @@ def get_image_from_bytes(binary_image: bytes) -> Image:
     input_image = Image.open(io.BytesIO(binary_image)).convert("RGB")
     return input_image
 
-
 def get_bytes_from_image(image: Image) -> bytes:
     """
     Convert PIL image to Bytes
@@ -56,6 +54,28 @@ def get_bytes_from_image(image: Image) -> bytes:
     image.save(return_image, format='JPEG', quality=85)  # save the image in JPEG format with quality 85
     return_image.seek(0)  # set the pointer to the beginning of the file
     return return_image
+
+def get_model_predict(input_image:Image, conf:float=0.5, save:bool= alse, augment:bool=False) -> np.array:
+    """
+    Get the predictions of a model on an input image.
+    
+    Args:
+        input_image (Image): The image on which the model will make predictions.
+        save (bool, optional): Whether to save the image with the predictions. Defaults to False.
+        image_size (int, optional): The size of the image the model will receive. Defaults to 1248.
+        conf (float, optional): The confidence threshold for the predictions. Defaults to 0.5.
+        augment (bool, optional): Whether to apply data augmentation on the input image. Defaults to False.
+    
+    Returns:
+        pd.DataFrame: A DataFrame containing the predictions.
+    """
+    # Prepare 
+    input_image = prepare_input(input_image, img_size, device=device)
+    # Make predictions 
+    predictions = model(input_image)  # model: The trained Segmentation model.
+    # Postprocess
+    predictions = prepare_output(predictions, threshold=conf)
+    return predictions
 
 def transform_predict_to_dict(predict) -> json:
     """
@@ -100,30 +120,6 @@ def transform_predict_to_dict(predict) -> json:
 
     return json.dumps(results)
 
-def get_model_predict(input_image:Image, conf:float=0.5, save:bool= alse, augment:bool=False) -> np.array:
-    """
-    Get the predictions of a model on an input image.
-    
-    Args:
-        input_image (Image): The image on which the model will make predictions.
-        save (bool, optional): Whether to save the image with the predictions. Defaults to False.
-        image_size (int, optional): The size of the image the model will receive. Defaults to 1248.
-        conf (float, optional): The confidence threshold for the predictions. Defaults to 0.5.
-        augment (bool, optional): Whether to apply data augmentation on the input image. Defaults to False.
-    
-    Returns:
-        pd.DataFrame: A DataFrame containing the predictions.
-    """
-    # Prepare 
-    input_image = prepare_input(input_image, img_size, device=device)
-    # Make predictions 
-    predictions = model(input_image)  # model: The trained Segmentation model.
-    # Postprocess
-    predictions = prepare_output(predictions, threshold=conf)
-    # # Transform predictions to pandas dataframe
-    # predictions = transform_predict_to_dict(predictions)
-    return predictions
-
 def transform_predict_to_image(predict, treshold=0.5):
     """ Transform input predict(nunpy) to Image.Image format """
     mask = (predict[:, :, 1] > treshold)
@@ -131,59 +127,3 @@ def transform_predict_to_image(predict, treshold=0.5):
     predict = predict.sum(axis=-1)
     predict = (predict * 255).astype(np.uint8)
     return Image.fromarray(predict)
-
-
-################################# BBOX Func #####################################
-
-# def add_bboxs_on_img(image: Image, predict: pd.DataFrame()) -> Image:
-#     """
-#     add a bounding box on the image
-
-#     Args:
-#     image (Image): input image
-#     predict (pd.DataFrame): predict from model
-
-#     Returns:
-#     Image: image whis bboxs
-#     """
-#     # Create an annotator object
-#     annotator = Annotator(np.array(image))
-
-#     # sort predict by xmin value
-#     predict = predict.sort_values(by=['xmin'], ascending=True)
-
-#     # iterate over the rows of predict dataframe
-#     for i, row in predict.iterrows():
-#         # create the text to be displayed on image
-#         text = f"{row['name']}: {int(row['confidence']*100)}%"
-#         # get the bounding box coordinates
-#         bbox = [row['xmin'], row['ymin'], row['xmax'], row['ymax']]
-#         # add the bounding box and text on the image
-#         annotator.box_label(bbox, text, color=colors(row['class'], True))
-#     # convert the annotated image to PIL image
-#     return Image.fromarray(annotator.result())
-
-
-################################# Models #####################################
-
-
-def detect_sample_model(input_image: Image) -> pd.DataFrame:
-    """
-    Predict from sample_model.
-    Base on YoloV8
-
-    Args:
-        input_image (Image): The input image.
-
-    Returns:
-        pd.DataFrame: DataFrame containing the object location.
-    """
-    predict = get_model_predict(
-        model=model,
-        input_image=input_image,
-        save=False,
-        image_size=640,
-        augment=False,
-        conf=0.5,
-    )
-    return predict

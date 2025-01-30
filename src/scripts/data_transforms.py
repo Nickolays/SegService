@@ -2,10 +2,6 @@ import numpy as np
 import torch
 from PIL import Image
 # from torchvision.transforms.v2 import Compose, Resize, ToTensor  # , Normalize
-
-# from skimage import measure
-# from scipy.interpolate import RegularGridInterpolator
-
 import os, cv2
 from tqdm import tqdm
 # from natsort import natsorted
@@ -38,7 +34,7 @@ def prepare_input(img, image_size=(512, 512), device='cpu'):
     # img = transforms(img)
     # img = img.to(device)
 
-    print(img.shape, img.max())
+    # print(img.shape, img.max())
 
     return img
 
@@ -61,17 +57,3 @@ def prepare_output(pred, threshold=None, device='cpu'):
 
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
-
-
-# def postprocess(self, predict, threshold=0.5):
-#         """ Resized predicted image into the main plot shape """
-#         print(f"postprocess input shape:  {predict.shape}")
-#         predict = predict[0].detach().numpy()  # shape is torch.Size([1, 1, 512, 512])
-#         # Reshape predict 
-#         predict = np.permute_dims(predict, (1, 2, 0))
-#         # Cut batch size and channels
-#         # predict = predict[0]  # (h, w, n_cls)
-#         if threshold != 0:
-#             predict = np.where(predict >= threshold, 1, 0)
-#         print(f"Postprocess output shape:  {predict.shape}")
-#         return predict

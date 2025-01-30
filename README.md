@@ -12,9 +12,9 @@ This repository serves as a template for building a real-time Segmentation API u
 - Pytest 
 
 TODO:
-- DVC
 - MLFLOW
 - AIRFLOW
+- DVC
 
 ### Sample
 Here's a sample of what you can expect to see with this project:
