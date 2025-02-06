@@ -1,7 +1,6 @@
 import pytest
 import time
 from PIL import Image
-import pandas as pd
 import sys
 import os
 
@@ -15,7 +14,7 @@ print(dynamic_path)
 
 sys.path.append(dynamic_path)
 
-# from main import crop_image_by_predict
+
 from main import app
 
 ################################ Fixtures #####################################################
@@ -32,7 +31,6 @@ def test_client():
 
 ################################ Test #####################################################
 
-
 def test_healthcheck(test_client):
     """
     This test function is used to test the /healthcheck endpoint of the application.
@@ -45,37 +43,6 @@ def test_healthcheck(test_client):
     assert response.status_code == 200
     # Assert that the response has a json payload of {"healthcheck": "Everything OK!"}
     assert response.json() == {"healthcheck": "Everything OK!"}
-
-
-# def test_crop_image_by_predict():
-#     """
-#     Test for the crop_image_by_predict function.
-#     This function crops an image given a prediction dataframe and a class name.
-#     """
-#     # Create a test image
-#     test_image = Image.new("RGB", (100, 100), "white")
-
-#     # Create a test predict dataframe
-#     test_predict = pd.DataFrame(
-#         data={
-#             "name": ["test_object", "other_object"],
-#             "xmin": [10, 20],
-#             "ymin": [10, 20],
-#             "xmax": [50, 60],
-#             "ymax": [50, 60],
-#         }
-#     )
-
-#     # Test cropping by an object that is present in the image
-#     cropped_image = crop_image_by_predict(test_image, test_predict, "test_object")
-#     assert cropped_image.size == (40, 40)
-
-#     # Test cropping by an object that is not present in the image
-#     with pytest.raises(HTTPException) as excinfo:
-#         crop_class_name = "non_existent_object" 
-#         crop_image_by_predict(test_image, test_predict, "non_existent_object")
-#     assert excinfo.value.detail == f"{crop_class_name} not found in photo"
-
 
 def img_segmentation_to_json(test_client, test_image):
     """Test the image recognition to json endpoint with a test image.

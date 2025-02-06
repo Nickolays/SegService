@@ -14,6 +14,7 @@ from src.scripts.utils import read_config
 from src.scripts.postprocess import img_2_points
 
 
+# Read config file and get model parameters
 config = read_config()
 img_size = (config['model_input_size'], config['model_input_size'])
 device = config['device']
@@ -55,15 +56,15 @@ def get_bytes_from_image(image: Image) -> bytes:
     return_image.seek(0)  # set the pointer to the beginning of the file
     return return_image
 
-def get_model_predict(input_image:Image, conf:float=0.5, save:bool= alse, augment:bool=False) -> np.array:
+def get_model_predict(input_image:Image, conf:float=0.5, save:bool= False, augment:bool=False) -> np.array:
     """
     Get the predictions of a model on an input image.
     
     Args:
         input_image (Image): The image on which the model will make predictions.
-        save (bool, optional): Whether to save the image with the predictions. Defaults to False.
-        image_size (int, optional): The size of the image the model will receive. Defaults to 1248.
         conf (float, optional): The confidence threshold for the predictions. Defaults to 0.5.
+        image_size (int, optional): The size of the image the model will receive. Defaults to 1248.
+        save (bool, optional): Whether to save the image with the predictions. Defaults to False.
         augment (bool, optional): Whether to apply data augmentation on the input image. Defaults to False.
     
     Returns:

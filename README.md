@@ -3,6 +3,7 @@
 # Echo Left Segmentation:
 This repository serves as a template for building a real-time Segmentation API using U2-Net and FastAPI. The project also includes Docker, a platform for easily building, shipping, and running distributed applications.
 
+Model was trained on LV and LA axis for apical 4 or 2chamber view.
 
 # What's inside:
 
