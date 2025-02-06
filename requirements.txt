@@ -9,3 +9,4 @@ loguru
 fastapi
 python-multipart
 httpx
+pyyaml
