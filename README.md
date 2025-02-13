@@ -7,7 +7,7 @@ Model was trained on LV and LA axis for apical 4 or 2chamber view.
 
 # What's inside:
 
-- U2Net: Convolution NN model for Segmentation
+- Trained U2Net: Convolution NN model for Segmentation
 - FastAPI 
 - Docker 
 - Pytest 
@@ -49,7 +49,7 @@ import requests
 
 input_image_name = 'test_image.jpg'
 api_host = 'http://0.0.0.0:8001/'
-type_rq = ''
+type_rq = 'img_segmentation_to_json'
 
 files = {'file': open(input_image_name, 'rb')}
 
@@ -74,7 +74,7 @@ import matplotlib.pyplot as plt
 
 input_image_name = 'test_image.jpg'
 api_host = 'http://0.0.0.0:8001/'
-type_rq = 'img_object_detection_to_img'
+type_rq = 'img_segmentation_to_img'
 
 files = {'file': open(input_image_name, 'rb')}
 
