@@ -14,7 +14,7 @@ Model was trained on LV and LA axis for apical 4 or 2chamber view.
 
 ### Sample
 Here's a sample of what you can expect to see with this project:
-<img width=400 src="src/tests/test_image.jpg" alt="">
+<img width=500 src="src/tests/test_image.jpg" alt="">
 
 ---
 # Getting Started
