@@ -12,11 +12,6 @@ Model was trained on LV and LA axis for apical 4 or 2chamber view.
 - Docker 
 - Pytest 
 
-TODO:
-- MLFLOW
-- AIRFLOW
-- DVC
-
 ### Sample
 Here's a sample of what you can expect to see with this project:
 <img width=600 src="src/tests/test_image.jpg" alt="">
